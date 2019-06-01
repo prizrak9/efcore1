@@ -1,0 +1,60 @@
+﻿
+@model efcore1.Models.TableProvider
+
+
+	<div class="db-table" method="post">
+
+		@{
+			var i = 0;
+		}
+
+		<div class="db-header">
+
+			<div class="db-header-index">rowId</div>
+
+			@foreach (var name in Model.FieldNames)
+			{
+				<div class="db-header-cell">@name</div>
+			} 
+			<div class="db-controls"></div>
+		</div>
+
+			@foreach (var entity in Model.Values)
+			{
+				<form asp-controller="Db" class="db-row">
+
+					<input type="hidden" name="__entityType" value="@Model.EntityType.FullName" />
+					<input type="hidden" name="__index" value="@i" />
+
+					<div class="db-row-index">@i</div>
+
+					@foreach (var field in entity)
+					{
+						@*<input type="text" name="@field.Name" class="db-row-cell" value="@values[field.Name]?.ToString()" />*@
+						<input type="text" name="@field.Key" class="db-row-cell" value="@(field.Value)" />
+					}
+					<div class="db-controls">
+						<button type="submit" asp-action="Update">Update</button>
+						<button type="submit" asp-action="Delete">Delete</button>
+					</div>
+				</form>
+
+				i++;
+			}
+
+			<form asp-controller="Db" class="db-row">
+
+				<input type="hidden" name="__entityType" value="@Model.EntityType.FullName" />
+
+				<div class="db-row-index">@i</div>
+
+				@foreach (var field in Model.FieldNames)
+				{
+					<input type="text" name="@field" class="db-row-cell" />
+				}
+				<div class="db-controls">
+					<button type="submit" asp-action="Insert">Insert</button>
+				</div>
+			</form>
+
+		</div>
