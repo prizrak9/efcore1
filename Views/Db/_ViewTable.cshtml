@@ -34,15 +34,15 @@
 						<input type="text" name="@field.Key" class="db-row-cell" value="@(field.Value)" />
 					}
 					<div class="db-controls">
-						<button type="submit" asp-action="Update">Update</button>
-						<button type="submit" asp-action="Delete">Delete</button>
+						<button type="submit" asp-action="Update" method="post">Update</button>
+						<button type="submit" asp-action="Delete" method="post">Delete</button>
 					</div>
 				</form>
 
 				i++;
 			}
 
-			<form asp-controller="Db" class="db-row">
+			<form asp-controller="Db" class="db-row" method="post">
 
 				<input type="hidden" name="__entityType" value="@Model.EntityType.FullName" />
 
